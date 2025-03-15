@@ -1,0 +1,87 @@
+import tkinter as tk
+from tkinter import ttk
+
+
+def agregar_articulo():
+    articulo = entrada_articulo.get()
+    if articulo:
+        lista_articulos1.insert(tk.END, articulo)
+        entrada_articulo.delete(0, tk.END)
+
+def mover_articulo():
+    seleccion = lista_articulos1.curselection()
+    if seleccion:
+        for index in seleccion:
+            articulo = lista_articulos1.get(index)
+            lista_articulos2.insert(tk.END, articulo)
+        lista_articulos1.delete(seleccion)
+
+def mover_a_lista1():
+    seleccion = lista_articulos2.curselection()
+    if seleccion:
+        for index in seleccion:
+            articulo = lista_articulos2.get(index)
+            lista_articulos1.insert(tk.END, articulo)
+        lista_articulos2.delete(seleccion)
+
+def mover_todos_a_lista2():
+    items = lista_articulos1.get(0, tk.END)
+    for item in items:
+        lista_articulos2.insert(tk.END, item)
+    lista_articulos1.delete(0, tk.END)
+
+def mover_todos_a_lista1():
+    items = lista_articulos2.get(0, tk.END)
+    for item in items:
+        lista_articulos1.insert(tk.END, item)
+    lista_articulos2.delete(0, tk.END)
+
+# Crear la ventana principal
+ventana = tk.Tk()
+ventana.title("Practica 3")
+ventana.geometry("800x800")  
+
+# Crear etiquetas
+label_articulo = tk.Label(ventana, text="Artículo:")
+label_lista1 = tk.Label(ventana, text="Lista 1:")
+label_lista2 = tk.Label(ventana, text="Lista 2:")
+
+# Crear cuadro de entrada
+entrada_articulo = tk.Entry(ventana)
+
+# Crear botón para agregar artículo
+boton_agregar = tk.Button(ventana, text="Registrar", command=agregar_articulo)
+
+# Crear lista de artículos 1
+lista_articulos1 = tk.Listbox(ventana)
+
+# Crear lista de artículos 2
+lista_articulos2 = tk.Listbox(ventana)
+
+# Crear botón para mover artículos
+boton_mover = tk.Button(ventana, text="Mover >>", command=mover_articulo)
+
+# Crear botón para mover un artículo a lista 1
+boton_mover_a_lista1 = tk.Button(ventana, text="<< Mover", command=mover_a_lista1)
+
+# Crear botón para mover todos a lista 2
+boton_mover_todos_a_lista2 = tk.Button(ventana, text="Mover Todos a Lista 2", command=mover_todos_a_lista2)
+
+# Crear botón para mover todos a lista 1
+boton_mover_todos_a_lista1 = tk.Button(ventana, text="Mover Todos a Lista 1", command=mover_todos_a_lista1)
+
+# Colocar widgets en la ventana
+label_articulo.pack()
+entrada_articulo.pack()
+boton_agregar.pack()
+label_lista1.pack()
+lista_articulos1.pack()
+boton_mover.pack()
+boton_mover_a_lista1.pack()
+boton_mover_todos_a_lista2.pack()
+label_lista2.pack()
+lista_articulos2.pack()
+boton_mover_todos_a_lista1.pack()
+
+# Ejecutar la ventana
+ventana.mainloop()
